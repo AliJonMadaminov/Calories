@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -40,6 +41,12 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         Picasso.get().load(meals.get(position).imgUrl).into(holder.mealImage);
         holder.mealName.setText(meals.get(position).name);
         holder.mealCalory.setText(String.valueOf(meals.get(position).caloriesPerPortion) + " Kkal");
+        holder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(meals.get(position));
+            }
+        });
     }
 
     @Override
@@ -62,12 +69,14 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         ImageView mealImage;
         TextView mealName;
         TextView mealCalory;
+        RelativeLayout root;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mealImage = itemView.findViewById(R.id.img_meal);
             mealName = itemView.findViewById(R.id.txt_meal_name);
             mealCalory = itemView.findViewById(R.id.txt_meal_calory);
+            root = itemView.findViewById(R.id.rltv_root_item);
         }
     }
 }
