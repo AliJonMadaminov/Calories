@@ -1,14 +1,23 @@
 package com.example.calories;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.GridLayout;
 
 public class ShowMealsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,23 +25,40 @@ public class ShowMealsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_meals);
 
         recyclerView = findViewById(R.id.recycler_meal);
-
-        MealAdapter adapter = new MealAdapter();
-
-        for (int i = 0; i < 5; i++) {
-            adapter.addMeal(new Meal("https://i.pinimg.com/originals/6e/21/0c/6e210c0ea82d1fff53f03140a9eba418.jpg", "Palov", 359, 10f, 76f, 1.4f));
-            adapter.addMeal(new Meal("https://rutxt.ru/files/14589/original/8c7a6c097d.JPG", "Curd", 98, 11f, 3.4f, 4.3f));
-            adapter.addMeal(new Meal("https://images.heb.com/is/image/HEBGrocery/000032968", "Kefir", 139, 8 ,9 , 8));
-
-        }
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query("meals", null, null, null, null, null, null);
 
         MealOnClickListener listener = new MealOnClickListener() {
             @Override
             public void onClick(Meal meal) {
-
+                Intent intent = new Intent(ShowMealsActivity.this, ShowMealDetailsActivity.class);
+                intent.putExtra("id", meal.id);
+                Log.d("ShowMeals id = ", String.valueOf(meal.id));
+                startActivity(intent);
             }
         };
+        MealAdapter adapter = new MealAdapter(listener);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int idIndex = cursor.getColumnIndex(getString(R.string.id_meals_db));
+                int imageUrlIndex = cursor.getColumnIndex(getString(R.string.image_url_db));
+                int nameIndex = cursor.getColumnIndex(getString(R.string.name_meals_db));
+                int kkalPerPortionIndex = cursor.getColumnIndex(getString(R.string.kkal_per_portion_meals_db));
+                int proteinIndex = cursor.getColumnIndex(getString(R.string.proteins_meals_db));
+                int carbsIndex = cursor.getColumnIndex(getString(R.string.carbs_meals_db));
+                int fatsIndex = cursor.getColumnIndex(getString(R.string.fats_meals_db));
+                adapter.addMeal(new Meal(cursor.getInt(idIndex),cursor.getString(imageUrlIndex),
+                        cursor.getString(nameIndex), cursor.getInt(kkalPerPortionIndex),
+                        cursor.getFloat(proteinIndex), cursor.getFloat(carbsIndex),
+                        cursor.getFloat(fatsIndex)));
+
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        recyclerView.setLayoutManager(new GridLayoutManager(getBaseContext(), 2, GridLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
     }
 }

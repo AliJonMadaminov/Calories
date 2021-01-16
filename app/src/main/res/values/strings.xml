@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Calories</string>
+    <string name="detailsPreferences">detailsPref</string>
+    <string name="db_name">"MealsDb"</string>
+    <string name="id_meals_db">id</string>
+    <string name="name_meals_db">name</string>
+    <string name="kkal_per_portion_meals_db">kkal_per_portion</string>
+    <string name="proteins_meals_db">proteins</string>
+    <string name="carbs_meals_db">carbs</string>
+    <string name="fats_meals_db">fats</string>
+    <string name="image_url_db">image_url</string>
+    <string name="palov_url"></string>
+    <string name="curd_url"></string>
+    <string name="kefir_url"></string>
+    <string name="pref_kcal_amount_name">kcalPref</string>
+    <string name="key_intent_calories_user_chosen">caloriesUserChosen</string>
+    <string name="pref_val_kcal_amount">kcalAmount</string>
+
+    <string name="table_name_chosen_meals">chosen_meals</string>
+    <string name="chosen_meals_id">id</string>
+    <string name="chosen_meals_name">name</string>
+    <string name="chosen_meals_kcal_amount">kcal_amount</string>
+    <string name="chosen_meals_proteins_amount">proteins_amount</string>
+    <string name="chosen_meals_carbs_amount">carbs_amount</string>
+    <string name="chosen_meals_fats_amount">fats_amount</string>
+    <string name="chosen_meals_is_deleted">is_deleted</string>
 </resources>
