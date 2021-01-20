@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
@@ -16,9 +15,7 @@
         app:cardCornerRadius="12dp"
         app:cardElevation="8dp">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="320dp"
             tools:context=".MainActivity">
@@ -51,6 +48,21 @@
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="8dp"
                 android:src="@drawable/ic_add" />
+
+            <ImageView
+                android:id="@+id/img_clear_calories"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:background="@drawable/ripple"
+                android:src="@drawable/ic_trash"/>
+            <ImageView
+                android:id="@+id/btn_show_history"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_show_history"
+                android:layout_margin="12dp"/>
 
         </RelativeLayout>
 

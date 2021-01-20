@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,11 +42,18 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get().load(meals.get(position).imgUrl).into(holder.mealImage);
         holder.mealName.setText(meals.get(position).name);
-        holder.mealCalory.setText(meals.get(position).caloriesPerPortion + " Kkal");
+        holder.mealCalory.setText(meals.get(position).caloriesPerPortion + " Kcal");
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(meals.get(position));
+            }
+        });
+        holder.isVavouriteImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.isVavouriteImg.setImageResource(R.drawable.ic_favorite_pressed);
+
             }
         });
     }
@@ -71,9 +79,11 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         TextView mealName;
         TextView mealCalory;
         CardView root;
+        ImageView isVavouriteImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            isVavouriteImg = itemView.findViewById(R.id.img_is_favourite);
             mealImage = itemView.findViewById(R.id.img_meal);
             mealName = itemView.findViewById(R.id.txt_meal_name);
             mealCalory = itemView.findViewById(R.id.txt_meal_calory);

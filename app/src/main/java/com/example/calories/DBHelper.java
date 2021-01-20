@@ -24,16 +24,21 @@ public class DBHelper extends SQLiteOpenHelper {
         + "carbs real,"
         + "fats real,"
         + "is_favourite integer not null default 0,"
+        + "image_uri text unique default null,"
         + "image_url text not null unique );" );
 
         db.execSQL("create table chosen_meals ("
                 + "id integer primary key autoincrement,"
-                + "name text not null unique,"
+                + "name text not null,"
                 + "kcal_amount integer not null,"
                 + "proteins_amount real,"
                 + "carbs_amount real,"
                 + "fats_amount real,"
                 + "is_deleted integer not null default 0 );" );
+
+        db.execSQL("create table favourite_meals ("
+                + "id integer,"
+                + "foreign key (id) references meals(id) );" );
 
         this.db = db;
 

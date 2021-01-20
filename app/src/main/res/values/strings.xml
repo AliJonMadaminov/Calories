@@ -17,6 +17,7 @@
     <string name="pref_val_kcal_amount">kcalAmount</string>
 
     <string name="table_name_chosen_meals">chosen_meals</string>
+    <string name="table_name_favourite_meals">favourite_meals</string>
     <string name="chosen_meals_id">id</string>
     <string name="chosen_meals_name">name</string>
     <string name="chosen_meals_kcal_amount">kcal_amount</string>

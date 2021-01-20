@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ public class ShowMealsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DBHelper dbHelper;
+    MealOnClickListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +30,7 @@ public class ShowMealsActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query("meals", null, null, null, null, null, null);
-
-        MealOnClickListener listener = new MealOnClickListener() {
-            @Override
-            public void onClick(Meal meal) {
-                Intent intent = new Intent(ShowMealsActivity.this, ShowMealDetailsActivity.class);
-                intent.putExtra("id", meal.id);
-                Log.d("ShowMeals id = ", String.valueOf(meal.id));
-                startActivity(intent);
-            }
-        };
+        implementMealOnClickListener();
         MealAdapter adapter = new MealAdapter(listener);
 
         if (cursor.moveToFirst()) {
@@ -60,5 +53,25 @@ public class ShowMealsActivity extends AppCompatActivity {
         }
         recyclerView.setLayoutManager(new GridLayoutManager(getBaseContext(), 2, GridLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
+    }
+    public void implementMealOnClickListener() {
+         listener = new MealOnClickListener() {
+            @Override
+            public void onClick(Meal meal) {
+                Intent intent = new Intent(ShowMealsActivity.this, ShowMealDetailsActivity.class);
+                intent.putExtra("id", meal.id);
+                Log.d("ShowMeals id = ", String.valueOf(meal.id));
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onClickFavourite(Meal meal) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put("id", meal.id);
+                db.insert(getString(R.string.table_name_favourite_meals), null, cv);
+            }
+        };
     }
 }

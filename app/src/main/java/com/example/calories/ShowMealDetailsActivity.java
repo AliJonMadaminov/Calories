@@ -95,7 +95,7 @@ public class ShowMealDetailsActivity extends AppCompatActivity implements View.O
         int caloriesUserChosenInt = Integer.parseInt(caloriesAmountText.getText().toString());
         switch (v.getId()) {
             case R.id.img_minus:
-                if (portionsInt > 0 && caloriesUserChosenInt - caloriesPerPortionInt >= 0) {
+                if (portionsInt > 1 && caloriesUserChosenInt - caloriesPerPortionInt >= 0) {
                     portions.setText((portionsInt - 1) + "");
                     caloriesAmountText.setText((caloriesUserChosenInt - caloriesPerPortionInt) + "");
                 }

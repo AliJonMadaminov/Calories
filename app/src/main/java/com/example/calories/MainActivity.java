@@ -2,6 +2,7 @@ package com.example.calories;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,16 +16,21 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView add;
     TextView kcals;
+    ImageView clearCalories;
+    ImageView showHistory;
     DBHelper dbHelper;
     int kcalsInt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         add = findViewById(R.id.img_add);
-        kcalsInt = 0;
         dbHelper = new DBHelper(this);
         add.setOnClickListener(this::onClick);
+        clearCalories = findViewById(R.id.img_clear_calories);
+        showHistory = findViewById(R.id.btn_show_history);
+
     }
 
     @Override
@@ -33,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.img_add:
                 Intent intent = new Intent(MainActivity.this, ShowMealsActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         kcals = findViewById(R.id.txt_kcal_amount);
-
+        kcalsInt = 0;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(getString(R.string.table_name_chosen_meals),
                 new String[]{getString(R.string.chosen_meals_kcal_amount)},
@@ -54,5 +61,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }while (cursor.moveToNext());
             kcals.setText(String.valueOf(kcalsInt));
         }
+        db.close();
+        cursor.close();
+
+        clearCalories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put(getString(R.string.chosen_meals_is_deleted), 1);
+                db.update(getString(R.string.table_name_chosen_meals), cv, null, null);
+                kcals.setText(String.valueOf(0));
+            }
+        });
+
+        showHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShowHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
