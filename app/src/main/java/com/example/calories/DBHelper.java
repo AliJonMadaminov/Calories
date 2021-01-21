@@ -34,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "proteins_amount real,"
                 + "carbs_amount real,"
                 + "fats_amount real,"
+                + "date Text not null,"
                 + "is_deleted integer not null default 0 );" );
 
         db.execSQL("create table favourite_meals ("

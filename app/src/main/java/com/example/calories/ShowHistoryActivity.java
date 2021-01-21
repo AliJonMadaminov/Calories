@@ -44,9 +44,10 @@ public class ShowHistoryActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(cursor.getColumnIndex(getString(R.string.chosen_meals_name)));
+                String date = cursor.getString(cursor.getColumnIndex(getString(R.string.chosen_meals_date)));
                 int caloriesAmount = cursor.getInt(cursor.getColumnIndex(getString(R.string.chosen_meals_kcal_amount)));
-                adapter.addChosenMeal(new ChosenMeal(name, caloriesAmount));
-            }while (cursor.moveToNext());
+                adapter.addChosenMeal(new ChosenMeal(name, caloriesAmount, date));
+            } while (cursor.moveToNext());
         }
         db.close();
     }

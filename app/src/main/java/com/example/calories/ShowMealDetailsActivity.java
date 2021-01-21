@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class ShowMealDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView caloriesPerPortion;
@@ -110,11 +113,15 @@ public class ShowMealDetailsActivity extends AppCompatActivity implements View.O
                     Intent intent = new Intent(ShowMealDetailsActivity.this, MainActivity.class);
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     ContentValues cv = new ContentValues();
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd\nHH:mm:ss");
+                    String formatedDate = format.format(calendar.getTime());
                     cv.put(getString(R.string.chosen_meals_name), chosenFoodName);
                     cv.put(getString(R.string.chosen_meals_kcal_amount), caloriesUserChosenInt);
                     cv.put(getString(R.string.chosen_meals_proteins_amount), proteinsPerPortionFloat);
                     cv.put(getString(R.string.chosen_meals_carbs_amount), carbsPerPortionFloat);
                     cv.put(getString(R.string.chosen_meals_fats_amount), fatsPerPortionFloat);
+                    cv.put(getString(R.string.chosen_meals_date), formatedDate);
                     db.insert(getString(R.string.table_name_chosen_meals), null, cv);
                     startActivity(intent);
                     finish();

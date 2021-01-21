@@ -33,6 +33,7 @@ public class MealHistoryAdapter extends RecyclerView.Adapter<MealHistoryAdapter.
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
         holder.nameTxt.setText(meals.get(position).name);
         holder.kcalsAmountTxt.setText(meals.get(position).totalCalories + "");
+        holder.date.setText(meals.get(position).dateOfChosing);
     }
 
     @Override
@@ -55,11 +56,13 @@ public class MealHistoryAdapter extends RecyclerView.Adapter<MealHistoryAdapter.
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
         TextView nameTxt;
         TextView kcalsAmountTxt;
+        TextView date;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTxt = itemView.findViewById(R.id.txt_meal_name_history);
             kcalsAmountTxt = itemView.findViewById(R.id.txt_kcals_amount_history);
+            date = itemView.findViewById(R.id.txt_date_history);
         }
     }
 }
