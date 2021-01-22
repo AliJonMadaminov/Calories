@@ -1,6 +1,7 @@
 package com.example.calories;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +26,9 @@ public class ShowHistoryActivity extends AppCompatActivity {
         super.onStart();
         dbHelper = new DBHelper(getApplicationContext());
         recyclerView = findViewById(R.id.recycler_meal_history);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(ShowHistoryActivity.this,
+                2, RecyclerView.VERTICAL, false));
+
         initializeAdapter();
         recyclerView.setAdapter(adapter);
     }
