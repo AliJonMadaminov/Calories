@@ -21,9 +21,7 @@
     <string name="chosen_meals_id">id</string>
     <string name="chosen_meals_name">name</string>
     <string name="chosen_meals_kcal_amount">kcal_amount</string>
-    <string name="chosen_meals_proteins_amount">proteins_amount</string>
-    <string name="chosen_meals_carbs_amount">carbs_amount</string>
-    <string name="chosen_meals_fats_amount">fats_amount</string>
     <string name="chosen_meals_date">date</string>
+    <string name="chosen_meals_image_uri">image_uri</string>
     <string name="chosen_meals_is_deleted">is_deleted</string>
 </resources>

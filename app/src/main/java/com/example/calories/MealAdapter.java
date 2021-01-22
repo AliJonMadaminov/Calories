@@ -1,12 +1,9 @@
 package com.example.calories;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -84,7 +81,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             isVavouriteImg = itemView.findViewById(R.id.img_is_favourite);
-            mealImage = itemView.findViewById(R.id.img_meal);
+            mealImage = itemView.findViewById(R.id.img_meal_history);
             mealName = itemView.findViewById(R.id.txt_meal_name);
             mealCalory = itemView.findViewById(R.id.txt_meal_calory);
             root = itemView.findViewById(R.id.card_item_root);

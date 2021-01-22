@@ -4,14 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +35,7 @@ public class ShowMealDetailsActivity extends AppCompatActivity implements View.O
     float carbsPerPortionFloat;
     float fatsPerPortionFloat;
     String chosenFoodName;
+    String imageUri;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -73,14 +71,14 @@ public class ShowMealDetailsActivity extends AppCompatActivity implements View.O
                     cursor.getColumnIndex(getString(R.string.carbs_meals_db)));
             fatsPerPortionFloat = cursor.getFloat(
                     cursor.getColumnIndex(getString(R.string.fats_meals_db)));
-
+            imageUri = cursor.getString(
+                    cursor.getColumnIndex(getString(R.string.image_url_db)));
 
             caloriesPerPortion.setText(caloriesPerPortionInt + "");
             proteinsPerPortion.setText(proteinsPerPortionFloat + " g");
             carbsPerPortion.setText(carbsPerPortionFloat + " g");
             fatsPerPortion.setText(fatsPerPortionFloat + " g");
-            Picasso.get().load(cursor.getString(
-                    cursor.getColumnIndex(getString(R.string.image_url_db)))).into(mealImage);
+            Picasso.get().load(imageUri).into(mealImage);
         }
         db.close();
         dbHelper.close();
@@ -114,13 +112,11 @@ public class ShowMealDetailsActivity extends AppCompatActivity implements View.O
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     ContentValues cv = new ContentValues();
                     Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd\nHH:mm:ss");
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd\nHH:mm");
                     String formatedDate = format.format(calendar.getTime());
                     cv.put(getString(R.string.chosen_meals_name), chosenFoodName);
                     cv.put(getString(R.string.chosen_meals_kcal_amount), caloriesUserChosenInt);
-                    cv.put(getString(R.string.chosen_meals_proteins_amount), proteinsPerPortionFloat);
-                    cv.put(getString(R.string.chosen_meals_carbs_amount), carbsPerPortionFloat);
-                    cv.put(getString(R.string.chosen_meals_fats_amount), fatsPerPortionFloat);
+                    cv.put(getString(R.string.chosen_meals_image_uri), imageUri);
                     cv.put(getString(R.string.chosen_meals_date), formatedDate);
                     db.insert(getString(R.string.table_name_chosen_meals), null, cv);
                     startActivity(intent);

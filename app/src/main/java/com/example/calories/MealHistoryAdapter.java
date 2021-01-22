@@ -3,10 +3,13 @@ package com.example.calories;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class MealHistoryAdapter extends RecyclerView.Adapter<MealHistoryAdapter.
         holder.nameTxt.setText(meals.get(position).name);
         holder.kcalsAmountTxt.setText(meals.get(position).totalCalories + "");
         holder.date.setText(meals.get(position).dateOfChosing);
+        Picasso.get().load(meals.get(position).imgUri).into(holder.mealImg);
     }
 
     @Override
@@ -57,12 +61,14 @@ public class MealHistoryAdapter extends RecyclerView.Adapter<MealHistoryAdapter.
         TextView nameTxt;
         TextView kcalsAmountTxt;
         TextView date;
+        ImageView mealImg;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTxt = itemView.findViewById(R.id.txt_meal_name_history);
             kcalsAmountTxt = itemView.findViewById(R.id.txt_kcals_amount_history);
             date = itemView.findViewById(R.id.txt_date_history);
+            mealImg = itemView.findViewById(R.id.img_meal_history);
         }
     }
 }

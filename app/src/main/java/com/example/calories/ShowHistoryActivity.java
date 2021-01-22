@@ -7,10 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowHistoryActivity extends AppCompatActivity {
 
@@ -46,7 +42,8 @@ public class ShowHistoryActivity extends AppCompatActivity {
                 String name = cursor.getString(cursor.getColumnIndex(getString(R.string.chosen_meals_name)));
                 String date = cursor.getString(cursor.getColumnIndex(getString(R.string.chosen_meals_date)));
                 int caloriesAmount = cursor.getInt(cursor.getColumnIndex(getString(R.string.chosen_meals_kcal_amount)));
-                adapter.addChosenMeal(new ChosenMeal(name, caloriesAmount, date));
+                String imageUri = cursor.getString(cursor.getColumnIndex(getString(R.string.chosen_meals_image_uri)));
+                adapter.addChosenMeal(new ChosenMeal(name, caloriesAmount, date, imageUri));
             } while (cursor.moveToNext());
         }
         db.close();

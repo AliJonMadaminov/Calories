@@ -31,9 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "id integer primary key autoincrement,"
                 + "name text not null,"
                 + "kcal_amount integer not null,"
-                + "proteins_amount real,"
-                + "carbs_amount real,"
-                + "fats_amount real,"
+                + "image_uri Text not null,"
                 + "date Text not null,"
                 + "is_deleted integer not null default 0 );" );
 
